@@ -8,7 +8,7 @@ The scripts in this repository are designed to streamline system management by o
 
 ## Available Scripts
 
-### `bootspla.sh`
+### `Proxmox/bootspla.sh`
 
 This script updates the Proxmox bootsplash image and restarts the necessary services to apply the changes.
 
@@ -18,8 +18,38 @@ This script updates the Proxmox bootsplash image and restarts the necessary serv
   
 #### Usage
 
-To download and run the `bootspla.sh` script directly from this repository, use one of the following commands.
+To download and run the `bootspla.sh` script directly from this repository, use the following command:
 
-##### Using `curl`:
 ```bash
-curl -sSL https://raw.githubusercontent.com/BlckIT/scripts/main/bootspla.sh | bash
+curl -sSL https://raw.githubusercontent.com/BlckIT/scripts/main/Proxmox/bootspla.sh | bash
+```
+
+### `Proxmox/logo.sh`
+
+This script replaces the Proxmox logo in the web interface using a base64-encoded image and updates the CSS to ensure proper display.
+
+#### Features:
+- Replaces the default Proxmox logo with a custom logo provided as a base64-encoded image.
+- Adjusts the logo size to fit the interface and removes any unwanted color inversion effects.
+- Automatically restarts Proxmox services to apply the changes.
+
+#### Usage
+
+To download and run the `logo.sh` script directly from this repository, use the following command:
+
+```bash
+curl -sSL https://raw.githubusercontent.com/BlckIT/scripts/main/Proxmox/logo.sh | bash
+```
+
+### More Scripts Coming Soon
+
+The repository will be updated with additional scripts to assist with other common system management tasks. Stay tuned for updates!
+
+## Contributions
+
+Feel free to contribute to this repository by submitting new scripts or improving the existing ones. Simply fork the repository, create a new branch, and submit a pull request.
+
+## License
+
+This repository is licensed under the [MIT License](LICENSE).
+```
