@@ -40,8 +40,14 @@ echo "$BASE64_LOGO" | base64 --decode | tee "$PROXMOX_LOGO_PATH" > /dev/null
 if grep -q "/* Custom styling for BlckIT logo - Start */" "$LOGO_CSS_PATH"; then
   echo "Custom CSS block found. Checking for updates..."
   
-  # Extract the current custom block from the file
+  # Extract the current custom block from the file (even if the closing comment is missing)
   current_block=$(sed -n '/\/\* Custom styling for BlckIT logo - Start \*\//,/\/\* Custom styling for BlckIT logo - End \*\//p' "$LOGO_CSS_PATH")
+
+  # Check if the closing comment is missing
+  if ! grep -q "/* Custom styling for BlckIT logo - End */" <<< "$current_block"; then
+    echo "Closing comment is missing from the current custom block. Replacing the entire block."
+    sed -i '/\/\* Custom styling for BlckIT logo - Start \*\//,/^\s*$/d' "$LOGO_CSS_PATH"
+  fi
 
   # Compare the current block with the new block
   if [ "$current_block" != "$CSS_BLOCK" ]; then
