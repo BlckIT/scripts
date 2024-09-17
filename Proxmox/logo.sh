@@ -35,8 +35,8 @@ else
 
 /* Custom styling for BlckIT logo */
 .x-plain #proxmoxlogo-1018 {
-    width: 250px !important;   /* Adjust to your logo's width */
-    height: 50px !important;   /* Adjust to your logo's height */
+    width: 187px !important;   /* Adjust to your logo's width */
+    height: 30px !important;   /* Adjust to your logo's height */
 }
 
 .x-plain #proxmoxlogo-1018 img {
