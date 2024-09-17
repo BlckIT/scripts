@@ -24,7 +24,7 @@ CSS_BLOCK="/* Custom styling for BlckIT logo */
 # Backup the original Proxmox logo
 if [ -f "$PROXMOX_LOGO_PATH" ]; then
   echo "Backing up the original Proxmox logo..."
-  sudo cp "$PROXMOX_LOGO_PATH" "$BACKUP_LOGO_PATH"
+  cp "$PROXMOX_LOGO_PATH" "$BACKUP_LOGO_PATH"
 else
   echo "Original Proxmox logo not found!"
   exit 1
@@ -32,7 +32,7 @@ fi
 
 # Decode the base64 string and replace the Proxmox logo
 echo "Replacing the Proxmox logo with the base64 image..."
-echo "$BASE64_LOGO" | base64 --decode | sudo tee "$PROXMOX_LOGO_PATH" > /dev/null
+echo "$BASE64_LOGO" | base64 --decode | tee "$PROXMOX_LOGO_PATH" > /dev/null
 
 # Check if the CSS has already been modified
 if grep -q "Custom styling for BlckIT logo" "$LOGO_CSS_PATH"; then
@@ -41,12 +41,12 @@ else
   echo "Modifying CSS to display the logo correctly..."
   
   # Add the custom CSS to the end of the file
-  sudo bash -c "echo '$CSS_BLOCK' >> $LOGO_CSS_PATH"
+  bash -c "echo '$CSS_BLOCK' >> $LOGO_CSS_PATH"
   echo "CSS modified successfully."
 fi
 
 # Restart Proxmox services
 echo "Restarting Proxmox services..."
-sudo systemctl restart pveproxy
+systemctl restart pveproxy
 
 echo "Logo replaced and CSS modified successfully!"
