@@ -37,6 +37,7 @@ else
 .x-plain #proxmoxlogo-1018 {
     width: 187px !important;   /* Adjust to your logo's width */
     height: 30px !important;   /* Adjust to your logo's height */
+    margin-right: 20px !important; /* Add space between the logo and the text */
 }
 
 .x-plain #proxmoxlogo-1018 img {
