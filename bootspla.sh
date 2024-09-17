@@ -9,12 +9,12 @@ BASE64_IMAGE="/9j/4AAQSkZJRgABAQEAWgBaAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBw
 # Remove the old image if it exists
 if [ -f "$TARGET_PATH" ]; then
   echo "Removing old bootsplash image..."
-  sudo rm -f "$TARGET_PATH"
+  rm -f "$TARGET_PATH"
 fi
 
 # Decode the base64 string and move the new image to the target location
 echo "Decoding base64 and creating new bootsplash image..."
-echo "$BASE64_IMAGE" | base64 --decode | sudo tee "$TARGET_PATH" > /dev/null
+echo "$BASE64_IMAGE" | base64 --decode | tee "$TARGET_PATH" > /dev/null
 
 # Verify if the new image is in place
 if [ -f "$TARGET_PATH" ]; then
@@ -26,11 +26,11 @@ fi
 
 # Restart Proxmox services
 echo "Restarting Proxmox services..."
-sudo systemctl restart pve-cluster
-sudo systemctl restart pvedaemon
-sudo systemctl restart pveproxy
-sudo systemctl restart pvestatd
-sudo systemctl restart qemu-server
+systemctl restart pve-cluster
+systemctl restart pvedaemon
+systemctl restart pveproxy
+systemctl restart pvestatd
+systemctl restart qemu-server
 
 # Verify if services restarted successfully
 if [ $? -eq 0 ]; then

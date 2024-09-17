@@ -22,4 +22,4 @@ To download and run the `bootspla.sh` script directly from this repository, use 
 
 ##### Using `curl`:
 ```bash
-curl -sSL https://raw.githubusercontent.com/BlckIT/scripts/main/bootspla.sh | sudo bash
+curl -sSL https://raw.githubusercontent.com/BlckIT/scripts/main/bootspla.sh | bash
