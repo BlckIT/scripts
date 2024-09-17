@@ -36,40 +36,18 @@ fi
 echo "Replacing the Proxmox logo with the base64 image..."
 echo "$BASE64_LOGO" | base64 --decode | tee "$PROXMOX_LOGO_PATH" > /dev/null
 
-# Check if the custom styling block is already present
-if grep -q "/* Custom styling for BlckIT logo - Start */" "$LOGO_CSS_PATH"; then
-  echo "Custom CSS block found. Checking for updates..."
-  
-  # Extract the current custom block from the file (even if the closing comment is missing)
-  current_block=$(sed -n '/\/\* Custom styling for BlckIT logo - Start \*\//,/\/\* Custom styling for BlckIT logo - End \*\//p' "$LOGO_CSS_PATH")
+# Remove any duplicate custom CSS blocks
+echo "Cleaning up any duplicate CSS blocks..."
+sed -i '/\/\* Custom styling for BlckIT logo - Start \*\//,/\/\* Custom styling for BlckIT logo - End \*\//d' "$LOGO_CSS_PATH"
 
-  # Check if the closing comment is missing
-  if ! grep -q "/* Custom styling for BlckIT logo - End */" <<< "$current_block"; then
-    echo "Closing comment is missing from the current custom block. Replacing the entire block."
-    sed -i '/\/\* Custom styling for BlckIT logo - Start \*\//,/^\s*$/d' "$LOGO_CSS_PATH"
-  fi
-
-  # Compare the current block with the new block
-  if [ "$current_block" != "$CSS_BLOCK" ]; then
-    echo "Custom CSS block has changed. Updating..."
-    
-    # Replace the existing custom block with the new one
-    sed -i '/\/\* Custom styling for BlckIT logo - Start \*\//,/\/\* Custom styling for BlckIT logo - End \*\//c\'"$CSS_BLOCK" "$LOGO_CSS_PATH"
-    echo "CSS block updated successfully."
-  else
-    echo "Custom CSS block is already up to date. No changes made."
-  fi
-else
-  echo "Adding custom CSS block for BlckIT logo..."
-  
-  # Add the custom CSS block with start and end comments
-  bash -c "cat >> $LOGO_CSS_PATH << 'EOF'
+# Add the custom CSS block with start and end comments
+echo "Adding custom CSS block for BlckIT logo..."
+bash -c "cat >> $LOGO_CSS_PATH << 'EOF'
 
 $CSS_BLOCK
 
 EOF"
-  echo "CSS block added successfully."
-fi
+echo "CSS block added successfully."
 
 # Set proper permissions for the CSS file
 chmod 644 "$LOGO_CSS_PATH"
